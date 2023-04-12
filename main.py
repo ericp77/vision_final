@@ -49,3 +49,10 @@ if __name__ == "__main__":
         shuffle=True
     )
 
+    # from: https://github.com/kylemin/S3D
+    model = S3D(num_class=len(train_dataset.classes))
+
+    for i, (video, audio, label) in enumerate(train_dataloader):
+        print(video.shape)
+        print(label)
+        break
