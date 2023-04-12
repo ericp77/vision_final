@@ -1,0 +1,3 @@
+https://github.com/kylemin/S3D
+https://pytorch.org/vision/main/generated/torchvision.transforms.RandomCrop.html
+https://pytorch.org/docs/stable/generated/torch.permute.html
