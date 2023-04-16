@@ -5,7 +5,7 @@ Pytorch Project
 ```bash
 wget http://serre-lab.clps.brown.edu/wp-content/uploads/2013/10/hmdb51_org.rar
 ```
-2. Dataset => dataset[0], dataset[1], ... index data (전체 데이터를 index로 접근할 수 있게 만들어 줌)
+2. Dataset => dataset[0], dataset[1], ... index data for loading and accessing
    * nn.utils.data.Dataset => inherit
    * __init__, __len__, __getitem__   must override
 3. DataLoader => Mini-Batch size    load the data and shuffle => collate_fn 
