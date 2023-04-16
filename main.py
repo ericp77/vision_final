@@ -36,8 +36,8 @@ if __name__ == "__main__":
     # from: https://github.com/kylemin/S3D
     model = S3D(num_class=len(train_dataset.classes))
     load_parameters('./S3D_kinetics400.pt', model)
-    optim = torch.optim.AdamW(model.parameters(), lr=1e-03)
     criterion = torch.nn.CrossEntropyLoss()
+    optim = torch.optim.AdamW(model.parameters(), lr=1e-03)
 
     for i, (video, audio, label) in enumerate(train_dataloader):
         y_hat = model(video)
