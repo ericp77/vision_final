@@ -18,6 +18,6 @@ wget http://serre-lab.clps.brown.edu/wp-content/uploads/2013/10/hmdb51_org.rar
 
 Additional Tasks
 1. pretrained model load
-2. log using wandb  => loss, accuracy 
+2. log using wandb  => loss, accuracy  
 
 Pytorch-Lightning Project
