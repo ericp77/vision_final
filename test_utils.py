@@ -1,5 +1,5 @@
 from unittest import TestCase
-from main import transform
+from utils import transform
 import torch
 
 
