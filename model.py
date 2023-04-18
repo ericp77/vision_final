@@ -2,6 +2,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
+# from: https://github.com/kylemin/S3D
 class S3D(nn.Module):
     def __init__(self, num_class):
         super(S3D, self).__init__()

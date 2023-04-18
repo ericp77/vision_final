@@ -21,3 +21,6 @@ Additional Tasks
 2. log using wandb  => loss, accuracy  
 
 Pytorch-Lightning Project
+1. DataModule
+2. LightningModule 
+3. Traning
