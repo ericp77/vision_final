@@ -2,15 +2,15 @@ from typing import Any
 import lightning.pytorch as pl
 import torch
 import torch.nn.functional as F
-from model import S3D
-from utils import load_parameters
+from model.model import S3D
+from utils.utils import load_parameters
 
 
 class WrapperModel(pl.LightningModule):
     def __init__(self, num_class: int):
         super().__init__()
         self.model = S3D(num_class=num_class)
-        load_parameters('./S3D_kinetics400.pt', self.model)
+        load_parameters('./model/S3D_kinetics400.pt', self.model)
 
     def forward(self, x):
         return self.model(x)

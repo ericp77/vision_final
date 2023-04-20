@@ -1,16 +1,17 @@
 import lightning
 from torch.utils.data import DataLoader
 from torchvision.datasets import HMDB51
-from utils import transform
+from utils.utils import transform
 
 
 class DataModule(lightning.LightningDataModule):
     def __init__(self,
                  root: str = "dataset/hmdb51",
-                 annotation_path: str ="dataset/splits"
+                 annotation_path: str ="dataset/splits",
+                 batch_size: int = 32
                  ):
         super().__init__()
-
+        self.batch_size = batch_size
         self.transform = transform
         self.train = HMDB51(
             root = root,
@@ -32,10 +33,10 @@ class DataModule(lightning.LightningDataModule):
         )
 
     def train_dataloader(self):
-        return DataLoader(self.train)
+        return DataLoader(self.train, batch_size=self.batch_size)
 
     def val_dataloader(self):
-        return DataLoader(self.eval)
+        return DataLoader(self.eval, batch_size=self.batch_size)
 
     def test_dataloader(self):
-        return DataLoader(self.eval)
+        return DataLoader(self.eval, batch_size=self.batch_size)

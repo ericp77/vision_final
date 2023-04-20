@@ -3,28 +3,35 @@ import argparse
 import torch
 from lightning import Trainer
 
-from torchvision.datasets import HMDB51
-from torch.utils.data import DataLoader
+from data.dataModule import DataModule
+from model.wrapperModel import WrapperModel
 
-from dataModule import DataModule
-from wrapperModel import WrapperModel
+def get_trainer_args():
+    trainer_parser = argparse.ArgumentParser()
+    trainer_parser.add_argument("--devices", type=int, default=1)
+    trainer_parser.add_argument("--accelerator", type=str, default="cpu")
+    trainer_parser.add_argument("--max_epochs", type=int, default=50)
 
+    return trainer_parser.parse_args()
+
+def get_data_args():
+    data_parser = argparse.ArgumentParser()
+    data_parser.add_argument("--root", type=str, default="dataset/hmdb51")
+    data_parser.add_argument("--annotation_path", type=str, default="dataset/splits")
+    data_parser.add_argument("--batch_size", type=int, default=32)
+
+    return data_parser.parse_args()
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--device", type=int, default=2)
-    parser.add_argument("--accelerator", type=str, default="auto")
-    parser.add_argument("--batch_size", type=int, default=32)
-    parser.add_argument("--max_epochs", type=int, default=50)
+    trainer_args = get_trainer_args()
+    data_args = get_data_args()
 
-    data_module = DataModule(
-        root="dataset/hmdb51",
-        annotation_path="dataset/splits",
-    )
+    data_module = DataModule(**vars(data_args))
 
-    model = WrapperModel(num_class=len(data_module.train.classes))
+    wrapper_model = WrapperModel(num_class=len(data_module.train.classes))
+    wrapper_model.model = torch.compile(wrapper_model.model)
 
-    trainer = Trainer(**parser.parse_args())
-    trainer.fit(model=model,
+    trainer = Trainer(**vars(trainer_args))
+    trainer.fit(model=wrapper_model,
                 datamodule=data_module)
