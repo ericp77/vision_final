@@ -18,7 +18,7 @@ def get_data_args():
     data_parser = argparse.ArgumentParser()
     data_parser.add_argument("--root", type=str, default="dataset/hmdb51")
     data_parser.add_argument("--annotation_path", type=str, default="dataset/splits")
-    data_parser.add_argument("--batch_size", type=int, default=32)
+    data_parser.add_argument("--batch_size", type=int, default=8)
 
     return data_parser.parse_args()
 
