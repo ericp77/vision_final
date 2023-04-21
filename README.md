@@ -23,4 +23,12 @@ Additional Tasks
 Pytorch-Lightning Project
 1. DataModule
 2. LightningModule 
-3. Traning
+3. Training
+4. logging using wandb
+   * Loss : training, validation
+     * entire
+   * Accuracy : training, validation (torchmetrics)
+     * entire
+     * each class
+5. Data augmentation
+6. Dockerfile & Docker-compose
