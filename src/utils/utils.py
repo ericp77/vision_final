@@ -4,10 +4,10 @@ import torch
 import torchvision.transforms as T
 
 
-def load_parameters(file_weight: str, model :torch.nn.Module):
+def load_parameters(file_weight: str, model: torch.nn.Module):
     # load the weight file and copy the parameters
     if os.path.isfile(file_weight):
-        print ('loading weight file')
+        print('loading weight file')
         weight_dict = torch.load(file_weight)
         model_dict = model.state_dict()
         for name, param in weight_dict.items():
@@ -17,13 +17,13 @@ def load_parameters(file_weight: str, model :torch.nn.Module):
                 if param.size() == model_dict[name].size():
                     model_dict[name].copy_(param)
                 else:
-                    print (' size? ' + name, param.size(), model_dict[name].size())
+                    print(' size? ' + name, param.size(), model_dict[name].size())
             else:
-                print (' name? ' + name)
+                print(' name? ' + name)
 
-        print (' loaded')
+        print(' loaded')
     else:
-        print ('weight file?')
+        print('weight file?')
 
 
 def transform(img: torch.Tensor):
@@ -42,6 +42,7 @@ def transform(img: torch.Tensor):
     # permute
     img = torch.permute(img, (1, 0, 2, 3))
     return img
+
 
 def get_class_name(idx: int):
     classes = [

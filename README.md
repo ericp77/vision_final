@@ -1,5 +1,25 @@
 # vision_final
 
+## Getting Start
+### Docker
+```bash
+docker build -t vision_final .
+export WANDB_API_KEY=[MY_API_KEY]
+docker-compose up -d
+
+```
+
+### Local
+```bash
+pip install -r requirements.txt
+export PYTHONPATH={ABSOLUTE_PATH_TO_PROJECT}
+wandb login [MY_API_KEY]
+python src/main.py
+```
+
+
+
+
 Pytorch Project
 1. Preprocessing => clean the data from outsied the project 
 ```bash
@@ -30,5 +50,9 @@ Pytorch-Lightning Project
    * Accuracy : training, validation (torchmetrics)
      * entire
      * each class
+```bash
+export WANDB_API_KEY=[MY_API_KEY]
+```
 5. Data augmentation
+6. Save Model
 6. Dockerfile & Docker-compose

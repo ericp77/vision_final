@@ -1,0 +1,18 @@
+version: '3'
+services:
+  vision_final:
+    runtime: nvidia
+    environment:
+      PYTHONPATH: /app
+      WANDB_API_KEY: $WANDB_API_KEY
+    image: vision
+    shm_size: '20gb'
+    volumes:
+      - ./:/app
+    command:
+      - sh
+      - -c
+      - |
+        wandb login $WANDB_API_KEY
+        python /app/src/main.py
+        
