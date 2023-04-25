@@ -24,7 +24,7 @@ class WrapperModel(pl.LightningModule):
 
         self.model = S3D(num_class=num_class)
 
-        load_parameters('./model/S3D_kinetics400.pt', self.model)
+        load_parameters('src/model/S3D_kinetics400.pt', self.model)
 
         self.save_hyperparameters()
 
