@@ -38,7 +38,7 @@ class WrapperModel(pl.LightningModule):
 
         # move accuracy func to device
         self.train_accuracy = self.train_accuracy.to(self.device)
-        self.top_5_train_accuracy = self.train_accuracy.to(self.device)
+        self.top_5_train_accuracy = self.top_5_train_accuracy.to(self.device)
 
         # log train loss
         self.log('train_loss', loss)
@@ -54,7 +54,7 @@ class WrapperModel(pl.LightningModule):
 
         # move accuracy func to device
         self.val_accuracy = self.val_accuracy.to(self.device)
-        self.top_5_val_accuracy = self.val_accuracy.to(self.device)
+        self.top_5_val_accuracy = self.top_5_val_accuracy.to(self.device)
 
         # log val loss
         self.log('val_loss', loss)
@@ -88,6 +88,6 @@ class WrapperModel(pl.LightningModule):
         self.all_labels = []
 
     def configure_optimizers(self) -> Any:
-        optim = torch.optim.AdamW(self.model.parameters(), lr=self.hparams.lr)
+        optim = torch.optim.Adam(self.model.parameters(), lr=self.hparams.lr)
         return optim
 
