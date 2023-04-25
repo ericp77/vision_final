@@ -3,7 +3,7 @@
 ## Getting Start
 ### Docker
 ```bash
-docker build -t vision_final .
+docker build -t vision .
 export WANDB_API_KEY=[MY_API_KEY]
 docker-compose up -d
 
