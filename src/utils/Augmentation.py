@@ -40,8 +40,8 @@ class Augmentation:
         return torch.tensor(augmented_frames)
 
     def __call__(self, img: torch.Tensor) -> torch.Tensor:
-        img = transform(img)
         img = self.augment_data(img, self.sharpen, self.gamma)
+        img = transform(img)
 
         return img
 
