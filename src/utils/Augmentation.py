@@ -37,7 +37,7 @@ class Augmentation:
 
             augmented_frames.append(frame)
 
-        return torch.tensor(augmented_frames, dtype=torch.uint8)
+        return torch.tensor(augmented_frames)
 
     def __call__(self, img: torch.Tensor) -> torch.Tensor:
         img = transform(img)
