@@ -41,7 +41,7 @@ class Augmentation:
 
     def __call__(self, img: torch.Tensor) -> torch.Tensor:
         img = transform(img)
-        img = augment_data(img, self.sharpen, self.gamma)
+        img = self.augment_data(img, self.sharpen, self.gamma)
 
         return img
 

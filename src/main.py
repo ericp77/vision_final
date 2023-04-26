@@ -14,7 +14,7 @@ from lightning.pytorch.loggers import WandbLogger
 ROOT_PATH = Path(os.path.abspath(__file__)).parent.parent
 def get_model_args():
     model_parser = argparse.ArgumentParser()
-    model_parser.add_argument("--lr", type=float, default=1e-5)
+    model_parser.add_argument("--lr", type=float, default=5e-5)
     return model_parser.parse_args()
 
 def get_trainer_args():
@@ -61,14 +61,14 @@ if __name__ == "__main__":
 
         logger = WandbLogger(
             project="vision_group",
-            name=f"base_{model_args.lr}_{data_args.batch_size}",
+            name=f"base_{model_args.lr}_{data_args.batch_size}_sharp",
             save_dir=config_args.log_dir
         )
 
     data_module = DataModule(**vars(data_args))
 
     wrapper_model = WrapperModel(
-        num_class=len(data_module.train.classes),
+        num_class=len(data_module.eval.classes),
         lr=model_args.lr,
     )
     wrapper_model.model = torch.compile(wrapper_model.model)
