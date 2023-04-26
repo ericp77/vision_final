@@ -14,5 +14,6 @@ services:
       - -c
       - |
         wandb login $WANDB_API_KEY
-        python /app/src/main.py
+        cd /app
+        python src/main.py
         
