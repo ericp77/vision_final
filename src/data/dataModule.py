@@ -2,7 +2,7 @@ import lightning
 from torch.utils.data import DataLoader
 from torchvision.datasets import HMDB51
 
-from src.utils import transform, Augmentation
+from src.utils import Transform
 
 
 class DataModule(lightning.LightningDataModule):
@@ -18,38 +18,20 @@ class DataModule(lightning.LightningDataModule):
         self.save_hyperparameters()
 
         self.batch_size = batch_size
-        self.transform = transform
         self.num_wokers = num_workers
-        self.train = HMDB51(
-            root=root,
-            annotation_path=annotation_path,
-            frames_per_clip=64,
-            train=True,
-            transform=transform,
-            fold=1,
-            output_format="TCHW"
-        )
+        self.train = self._prepare_dataset(train=True)
 
         # Data augmentation
         if sharpen:
-            self.train += self._augmentation(sharpen=True)
+            self.train += self._prepare_dataset(train=True, sharpen=True)
 
         if gamma:
-            self.train = self._augmentation(gamma=True)
+            self.train = self._prepare_dataset(train=True, gamma=True)
 
         if sharpen and gamma:
-            self.train = self._augmentation(sharpen=True, gamma=True)
+            self.train = self._prepare_dataset(train=True, sharpen=True, gamma=True)
 
-        self.eval = HMDB51(
-            root=root,
-            annotation_path=annotation_path,
-            frames_per_clip=64,
-            train=False,
-            transform=transform,
-            fold=1,
-            output_format="TCHW"
-        )
-        print("hi")
+        self.eval = self._prepare_dataset(train=False)
 
     def train_dataloader(self):
         return DataLoader(self.train, batch_size=self.batch_size, num_workers=self.hparams.num_workers)
@@ -60,13 +42,13 @@ class DataModule(lightning.LightningDataModule):
     def test_dataloader(self):
         return DataLoader(self.eval, batch_size=self.batch_size, num_workers=self.hparams.num_workers)
 
-    def _augmentation(self, sharpen: bool = False, gamma: bool = False) -> HMDB51:
+    def _prepare_dataset(self, train: bool = True, sharpen: bool = False, gamma: bool = False) -> HMDB51:
         augmentation_dataset = HMDB51(
             root=self.hparams.root,
             annotation_path=self.hparams.annotation_path,
             frames_per_clip=64,
-            train=True,
-            transform=Augmentation(sharpen=sharpen, gamma=gamma),
+            train=train,
+            transform=Transform(sharpen=sharpen, gamma=gamma),
             fold=1,
             output_format="TCHW"
         )
