@@ -10,7 +10,6 @@ from src.model.wrapperModel import WrapperModel
 
 from lightning.pytorch.loggers import WandbLogger
 
-
 ROOT_PATH = Path(os.path.abspath(__file__)).parent.parent
 def get_model_args():
     model_parser = argparse.ArgumentParser()
@@ -21,7 +20,7 @@ def get_trainer_args():
     trainer_parser = argparse.ArgumentParser()
     trainer_parser.add_argument("--devices", type=int, default=-1)
     trainer_parser.add_argument("--accelerator", type=str, default="auto")
-    trainer_parser.add_argument("--max_epochs", type=int, default=10)
+    trainer_parser.add_argument("--max_epochs", type=int, default=5)
     trainer_parser.add_argument("--precision", type=str, default="16-mixed")
 
     return trainer_parser.parse_args()
@@ -35,8 +34,8 @@ def get_data_args():
     data_parser.add_argument("--annotation_path", type=str, default=str(annotation_path))
     data_parser.add_argument("--batch_size", type=int, default=12)
     data_parser.add_argument("--num_workers", type=int, default=4)
-    data_parser.add_argument("--sharpen", type=bool, default=False)
-    data_parser.add_argument("--gamma", type=bool, default=False)
+    data_parser.add_argument("--sharpen", type=bool, default=True)
+    data_parser.add_argument("--gamma", type=bool, default=True)
 
     return data_parser.parse_args()
 
@@ -61,7 +60,7 @@ if __name__ == "__main__":
 
         logger = WandbLogger(
             project="vision_group",
-            name=f"base_{model_args.lr}_{data_args.batch_size}_sharp",
+            name=f"base_{model_args.lr}_{data_args.batch_size}_sharp_gamma",
             save_dir=config_args.log_dir
         )
 

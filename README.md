@@ -1,4 +1,12 @@
 # vision_final
+# Author: Seungyoon Paik
+# Model Retrieved From: https://github.com/kylemin/S3D
+# Training Dataset Retrieved From: http://serre-lab.clps.brown.edu/wp-content/uploads/2013/10/hmdb51_org.rar
+
+# Referenced: 
+# https://lightning.ai/pages/open-source/
+# https://github.com/features/copilot
+
 
 ## Getting Start
 ### Docker
